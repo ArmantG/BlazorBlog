@@ -7,7 +7,6 @@ namespace BlazorBlog.Server.Controllers;
 [ApiController]
 public class BlogController : ControllerBase
 {
-   
     //
     // public List<BlogPost> Posts { get; set; } = new()
     // {
@@ -43,13 +42,13 @@ public class BlogController : ControllerBase
     // };
 
     private readonly ApplicationDbContext _context;
-    
+
     public BlogController(ApplicationDbContext context)
     {
         _context = context;
     }
-    
-    
+
+
     [HttpGet]
     public ActionResult<List<BlogPost>> GetAllBlogPosts()
     {
@@ -58,13 +57,13 @@ public class BlogController : ControllerBase
 
     [HttpGet("{url}")]
     public ActionResult<List<BlogPost>> GetSingleBlogPosts(string url)
-    { 
+    {
         var post = _context.BlogPosts!.FirstOrDefault(p => p.Url != null && p.Url.ToLower().Equals(url.ToLower()));
         if (post == null)
         {
             return NotFound("No post found");
         }
-       
+
         return Ok(post);
     }
 }

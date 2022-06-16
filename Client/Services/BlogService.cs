@@ -25,13 +25,11 @@ public class BlogService : IBlogService
         var result = await _http.GetAsync($"api/Blog/{url}");
         if (result.StatusCode != System.Net.HttpStatusCode.OK)
         {
-           var message = await result.Content.ReadAsStreamAsync();
-           Console.WriteLine(message);
-           return new BlogPost { Title = message.ToString() };
+            var message = await result.Content.ReadAsStreamAsync();
+            Console.WriteLine(message);
+            return new BlogPost { Title = message.ToString() };
         }
-        
-        
-        return await result.Content.ReadFromJsonAsync<BlogPost>();
 
+        return await result.Content.ReadFromJsonAsync<BlogPost>();
     }
 }
